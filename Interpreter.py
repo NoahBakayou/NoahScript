@@ -66,10 +66,6 @@ def extract_block(lines, start_index, block_type):
 
 
 def varmap(targetVar, state):
-    # Assuming string variables are prefixed with 'str', return them as is from the state
-    if targetVar.startswith("str"):
-        return state.get(targetVar, "")
-    else:
         return state.get(targetVar, 0)
 
 def tokenize(expression):
@@ -360,6 +356,7 @@ START_WHILE counter > 0
     PRINT counter
     ASSIGN counter = counter - 1
 END_WHILE
+EASTER_EGG
 """
 
 executeProgram(sampleProgram)
