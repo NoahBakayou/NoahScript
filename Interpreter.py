@@ -302,6 +302,8 @@ def execute_command(command, state, lines, current_index, program_map):
         return execute_if(command[len("START_IF"):].strip(), state, lines, current_index, program_map)
     elif command.startswith("START_ELSE"):  # Ignore START_ELSE since its logic is handled in execute_if
         return program_map[current_index] + 1
+    elif command.startswith("EASTER_EGG"):
+        print("🐰 You found the Easter Egg! 🥚🌷")
     elif command in ["END_IF", "END_ELSE", "END_WHILE", "END_FOR"]:
         return current_index + 1  # Move to the next command
     elif command.startswith("START_WHILE"):
@@ -358,7 +360,6 @@ START_WHILE counter > 0
     PRINT counter
     ASSIGN counter = counter - 1
 END_WHILE
-
 """
 
 executeProgram(sampleProgram)
