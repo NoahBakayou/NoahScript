@@ -15,7 +15,6 @@ def build_program_map(lines):
                 program_map[i + 1] = i  # Link START_ELSE back to END_IF for reference
     return program_map
 
-# This function takes the entire program as a string and returns a structured list.
 def parse_program(program):
     lines = program.splitlines()  
     structured_program = [] 
@@ -63,10 +62,9 @@ def extract_block(lines, start_index, block_type):
 
     return block_lines, i  # Return the collected lines within the block and the index of the last processed line.
 
-
-
+# Retrieves the value of a variable from the program state.
 def varmap(targetVar, state):
-        return state.get(targetVar, 0)
+    return state.get(targetVar, 0)
 
 def tokenize(expression):
     tokens = []
@@ -170,7 +168,6 @@ def evaluate_operation(left, right, op):
     elif op == '>':
         return left > right
 
-
 def evaluate_expression(tokens, state):
     #print(f"Evaluating expression: {tokens}")
     result, _ = parse_expression(tokens, 0, state)
@@ -192,7 +189,6 @@ def execute_assign(command, state):
         tokens = tokenize(rhs)
         result = evaluate_expression(tokens, state)
         state[lhs] = result
-
 
 def execute_print(command, state):
     var_name = command.strip()
@@ -323,14 +319,19 @@ def executeProgram(program):
             continue
         i = execute_command(line, state, lines, i, program_map)
 
-
 sampleProgram = """
-ASSIGN maxNum = 16
-ASSIGN counter = 5
+ASSIGN maxNum = 4 * (8 / 2) + 5
+ASSIGN counter = maxNum / 7
 ASSIGN FizzBuzz = "FizzBuzz"
 ASSIGN Fizz = "Fizz"
 ASSIGN Buzz = "Buzz"
-ASSIGN Countdown = "Countdown:"
+ASSIGN countdown = "Countdown:"
+ASSIGN line = "-------------------------------------"
+ASSIGN title = "Fizz Buzz Challenge!"
+ASSIGN empty = ""
+
+PRINT line
+PRINT title
 
 START_FOR i FROM 1 TO maxNum BY 1
     START_IF i % 15 == 0
@@ -350,13 +351,14 @@ START_FOR i FROM 1 TO maxNum BY 1
         END_ELSE
     END_ELSE
 END_FOR
-
-PRINT Countdown
+PRINT empty
+PRINT countdown
 START_WHILE counter > 0
     PRINT counter
     ASSIGN counter = counter - 1
 END_WHILE
 EASTER_EGG
+PRINT line
 """
 
 executeProgram(sampleProgram)
